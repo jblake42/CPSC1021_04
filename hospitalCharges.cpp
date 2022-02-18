@@ -5,14 +5,15 @@
  */
 #include <iomanip>
 #include <iostream>
-#include "calcTotalCharges.h" 
-#include "validateUserInput.h"
+#include "Patient.h" 
+
 using namespace std;
 int main()
 {
+	Patient pat('I',0, 0.0 , 0.0 , 0.0); 
 	char patientType;
-	float numDays;
-	float rate, totalCharge, otherCharge, medCharge;
+	int numDays;
+	double rate, totalCharge, otherCharge, medCharge;
 	
 	
 		
@@ -29,35 +30,47 @@ int main()
 		//getting user input
 		cout << "Number of days in the hospital: " ;
 		cin >> numDays;
-		numDays = validateUserInput(numDays);
-	
+		pat.setDays(numDays);
+		numDays = pat.getDays();
+		/*used for debugging*/
+		//cout<<pat.getDays()<<endl;
+
 		cout << "Daily room rate ($): ";
 		cin >> rate;
-		rate = validateUserInput(rate);
-	
+		pat.setRate(rate);
+		rate = pat.getRate();
+
 		cout << "Lab fees and other service charges ($): "; 
 		cin >> otherCharge;
-		otherCharge = validateUserInput(otherCharge);
+		pat.setServices(otherCharge);
+		otherCharge =pat.getServices();
+
 
 		cout << "Medication Charges ($): " ;
 		cin >> medCharge;	
-		medCharge = validateUserInput(medCharge);
-		
-		totalCharge = calcTotalCharges(numDays, rate, otherCharge, medCharge);
-		
+		pat.setMedication(medCharge);
+		medCharge = pat.getMedication();
+
+		Patient patient(patientType, numDays, rate, otherCharge, medCharge);
+		// calc total cost
+		//totalCharge = pat.calcTotalCharges(numDays, rate, otherCharge, medCharge);
 	}
 	else if(patientType == 'O' || patientType == 'o')
 	{
 		
 		cout << "Lab fees and other service charges ($): " ; 
 		cin >> otherCharge;
-		otherCharge = validateUserInput(otherCharge);
+		pat.setServices(otherCharge);
+		otherCharge = pat.getServices();
 
 		cout << "Medication Charges ($): " ;
 		cin >> medCharge;	
-		medCharge = validateUserInput(medCharge);
+		pat.setMedication(medCharge);
+		medCharge = pat.getMedication();
 
-		totalCharge = calcTotalCharges(otherCharge, medCharge);
+		Patient patient(patientType, otherCharge, medCharge );
+		totalCharge = patient.calcTotalCharges(otherCharge, medCharge);
+
 	}
 		cout << "Your total hospital bils is $" << fixed << setprecision(2) << totalCharge << endl;
 	

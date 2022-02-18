@@ -1,10 +1,13 @@
 #ifndef PATIENT_H
 #define PATIENT_H
+#include <iostream>
+
+using namespace std;
 class Patient{
     private:
         //needed variables and declaring their default values
-        int days{0.0};
-        double rate{0.0}, services{0.0}, medication{0.0};
+        int days{0} ;
+        double rate {0.0}, services {0.0}, medication{0.0};
         char patientType{'I'};
 
         bool validateInput(int);
@@ -12,9 +15,8 @@ class Patient{
     public:
         //default constructor
         Patient()= default;
-        Patient(int daysVal, double rateVal, double servicesVal, double medicationVal, char patientTypeVal) :
-            days(daysVal), rate(rateVal), services(servicesVal), medication(medicationVal), patientType(patientTypeVal) {}
-
+        Patient(char patientTypeVal, int daysVal, double rateVal, double servicesVal, double medicationVal );
+        Patient(char patientTypeVal, double servicesVal, double medicationVal );
 
         //declaring needed functions
         void setDays(int);
@@ -28,8 +30,8 @@ class Patient{
         double getMedication();
         char getPatientType();
 
-        double calcTotalCharges(int, double, double , double);
-        double calcTotalCharges(double , double);
+        double calcTotalCharges(int days, double rate, double service, double medication);
+        double calcTotalCharges(double service, double medication);
 };
 
 #endif

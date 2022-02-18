@@ -1,21 +1,41 @@
 #include "Patient.h"
 
-bool Patient::validateInput(int xI)
+
+
+
+
+Patient::Patient(char typeIn, double servicesIn, double medicationIn)
+{
+    services = servicesIn;
+    medication = medicationIn;
+    patientType = typeIn;
+}
+Patient::Patient(char typeIn, int daysIn, double rateIn, double servicesIn, double medicationIn)
+{
+    services = servicesIn;
+    medication = medicationIn;
+    patientType = typeIn;
+    days = daysIn;
+    rate = rateIn;
+
+}
+
+bool Patient::validateInput(int x)
 {
     bool validData = false;
 
-    if(xI >=0)
+    if(x >=0)
         validData = true;
 
 
     return validData;
 }
 
-bool Patient::validateInput(double xD)
+bool Patient::validateInput(double x)
 {
     bool validData = false;
 
-    if(xD >=0)
+    if(x >=0)
          validData= true;
 
     return validData;
@@ -23,21 +43,25 @@ bool Patient::validateInput(double xD)
 
 void Patient::setDays(int d)
 {
-    days = d;
+    if(Patient::validateInput(d) == true)
+        days = d;
 }
 
 void Patient::setRate(double r)
 {
-    rate = r;
+    if(Patient::validateInput(r) == true)
+        rate = r;
 }
 
 void Patient::setServices(double s)
 {
-    services = s;
+    if(Patient::validateInput(s) == true)
+        services = s;
 }
 
 void Patient::setMedication(double m)
 {
+    if(Patient::validateInput(m) == true)
     medication = m;
 }
 
@@ -71,9 +95,9 @@ char Patient::getPatientType()
     return patientType;
 }
 
-double Patient::calcTotalCharges(int D, double R, double S, double M)
+double Patient::calcTotalCharges(int days, double room, double service, double medication)
 {
-    double sum = (D * R) + S + M;
+    double sum = (days * rate) + services + medication;
     return sum; 
 }
 
